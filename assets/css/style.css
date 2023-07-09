@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+   padding: 5px;
+  color: white;
+}
+
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #000000;
+}
+
+header {
+  display: flex;
+}
+
+.searchBarForm {
+  display: flex;
+  margin-top: 20px;
+
+  margin-left: auto;
+}
+.searchBox {
+  border: 1px solid #333333;
+  padding: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.searchBox input {
+  border: none;
+  outline: none;
+  background: none;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.cityInfoName {
+  font-size: 40px;
+  color: white;
+  font-weight: 1000;
+  font-style: ;
+}
+.controllerData {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.controllerData .switcher {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: auto;
+}
+
+.switcher {
+  border: 1px solid #333333;
+  display: flex;
+
+  border-radius: 10px;
+}
+
+.switcher .switcherItem {
+  display: flex;
+  justify-content: center;
+  min-width: 100px;
+  cursor: pointer;
+}
+
+.switcher button {
+  all: unset;
+  cursor: pointer;
+}
+
+.switcher .active {
+  background-color: #1e1e1e;
+
+  border-radius: 10px;
+}
+
+.weatherInfo {
+  display: flex;
+  font-size: 120px;
+}
+
+.weatherInfo h2 {
+  color: white;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.cardMain {
+  padding: 10px;
+  border: 2px solid #333333;
+  border-radius: 10px;
+}
+
+.cardInfo {
+  display: flex;
+}
+
+.weeklyBar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+}
+
+.weeklyTemp {
+  font-size: 50px;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 768px) {
+  .weatherInfo {
+    font-size: 50px;
+  }
+  .weatherInfo img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .weeklyBar {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.loader {
+  width: 99%;
+  height: 90%;
+  position: absolute;
+  background-color: #000000;
+  z-index: 999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+

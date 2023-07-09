@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./assets/css/style.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/0171085eaf.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="loader" id="loader">
+      <i
+        class="fa-solid fa-bolt"
+        style="
+          color: grey;
+          font-size: 100px;
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        "
+      ></i>
+    </div>
+
+    <header>
+      <form class="searchBarForm">
+        <div class="searchBox">
+          <i
+            class="fa-solid fa-bolt"
+            style="color: #ffffff; font-size: 20px"
+          ></i>
+          <input type="text" class="searchBar" placeholder="Search" />
+          <button type="submit" style="display: none" class="searchButton">
+            Search
+          </button>
+        </div>
+      </form>
+    </header>
+    <main>
+      <div class="cityInfo">
+        <h1 class="cityInfoName" id="cityName">Kathmandu, Nepal</h1>
+        <div class="controllerData">
+          <div class="weatherInfo">
+            <img
+              id="weatherIcon"
+              src="https://openweathermap.org/img/wn/10d@4x.png"
+              width="200px"
+              height="200px"
+            />
+            <h2 class="convertable" id="temperature">25</h2>
+          </div>
+          <div class="switcher">
+            <div
+              class="switcherItem active"
+              id="celciusSwitch"
+              onclick="toggleSwitch();"
+            >
+              <button onclick="toggleSwitch();">C</button>
+            </div>
+            <div
+              class="switcherItem"
+              id="fahrenheitSwitch"
+              onclick="toggleSwitch();"
+            >
+              <button>F</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1>5 Days Forecast</h1>
+      <div class="weeklyBar" id="5dayForecast"></div>
+    </main>
+
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
