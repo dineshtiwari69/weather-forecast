@@ -1,9 +1,8 @@
 * {
   margin: 0;
-   padding: 5px;
+  padding: 5px;
   color: white;
 }
-
 
 body {
   font-family: "Inter", sans-serif;
@@ -82,12 +81,28 @@ header {
 .weatherInfo {
   display: flex;
   font-size: 120px;
+
 }
 
 .weatherInfo h2 {
   color: white;
   font-weight: 900;
   font-style: italic;
+}
+
+.subData {
+  margin-left : 20px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.subData .subDataItem {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .cardMain {
@@ -146,5 +161,3 @@ header {
     opacity: 0.5;
   }
 }
-
-

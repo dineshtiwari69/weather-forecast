@@ -12,6 +12,12 @@ function loadData(data) {
     document.getElementById("temperature").innerHTML = data.main.temp;
     document.getElementById("weatherIcon").src = cloudUrl;
     document.getElementById("cityName").innerHTML = cityName;
+    document.getElementById("humidity").innerHTML = data.main.humidity;
+    document.getElementById("pressure").innerHTML = data.main.pressure;
+    const minMax = `${data.main.temp_min}-${data.main.temp_max}`;
+    document.getElementById("minMaxTemp").innerHTML = minMax;
+
+
 
     const latLong = data.coord;
     const lat = latLong.lat;
@@ -20,6 +26,7 @@ function loadData(data) {
     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${appId}&units=metric`
 
     fetch(url).then(response => response.json()).then(data => {
+        document.getElementById("5dayForecast").innerHTML = "";
         const forecast = data.list;
         // only pick every 5th 
         const filteredForecast = forecast.filter((value, index) => {
@@ -79,6 +86,70 @@ function loadData(data) {
             cardInfoElem.appendChild(tempElem);
             mainElem.appendChild(cardInfoElem);
 
+       
+
+            let subDataElem = document.createElement("div");
+
+            subDataElem.classList.add("subData");
+            let subDataItem1 = document.createElement("div");
+            subDataItem1.classList.add("subDataItem");
+            let subDataItem1Icon = document.createElement("i");
+            subDataItem1Icon.classList.add("fa-solid");
+            subDataItem1Icon.classList.add("fa-droplet");
+            subDataItem1Icon.classList.add("fa-lg");
+            subDataItem1Icon.style.color = "#ffffff";
+            subDataItem1.appendChild(subDataItem1Icon);
+            let subDataItem1Temp = document.createElement("h3");
+            subDataItem1Temp.classList.add("convertable");
+            subDataItem1Temp.innerHTML = value.main.humidity;
+            subDataItem1.appendChild(subDataItem1Temp);
+            let subDataItem1P = document.createElement("p");
+            subDataItem1P.innerHTML = "Humidity";
+            subDataItem1.appendChild(subDataItem1P);
+            subDataElem.appendChild(subDataItem1);
+            
+            let subDataItem2 = document.createElement("div");
+            subDataItem2.classList.add("subDataItem");
+            let subDataItem2Icon = document.createElement("i");
+            subDataItem2Icon.classList.add("fa-solid");
+            subDataItem2Icon.classList.add("fa-jedi");
+            subDataItem2Icon.classList.add("fa-lg");
+            subDataItem2Icon.style.color = "#ffffff";
+            subDataItem2.appendChild(subDataItem2Icon);
+            let subDataItem2Temp = document.createElement("h3");
+            subDataItem2Temp.classList.add("convertable");
+            subDataItem2Temp.innerHTML = value.main.pressure;
+            subDataItem2.appendChild(subDataItem2Temp);
+            let subDataItem2P = document.createElement("p");
+            subDataItem2P.innerHTML = "Pressure";
+            subDataItem2.appendChild(subDataItem2P);
+            subDataElem.appendChild(subDataItem2);
+            
+            let subDataItem3 = document.createElement("div");
+            subDataItem3.classList.add("subDataItem");
+            let subDataItem3Icon1 = document.createElement("i");
+            subDataItem3Icon1.classList.add("fa-solid");
+            subDataItem3Icon1.classList.add("fa-temperature-arrow-up");
+            subDataItem3Icon1.classList.add("fa-lg");
+            subDataItem3Icon1.style.color = "#ffffff";
+            subDataItem3.appendChild(subDataItem3Icon1);
+            let subDataItem3Icon2 = document.createElement("i");
+            subDataItem3Icon2.classList.add("fa-solid");
+            subDataItem3Icon2.classList.add("fa-temperature-arrow-down");
+            subDataItem3Icon2.classList.add("fa-lg");
+            subDataItem3Icon2.style.color = "#ffffff";
+            subDataItem3.appendChild(subDataItem3Icon2);
+            let subDataItem3Temp = document.createElement("h3");
+            subDataItem3Temp.classList.add("convertableMinMax");
+            subDataItem3Temp.innerHTML = `${value.main.temp_min} - ${value.main.temp_max}`;
+            subDataItem3.appendChild(subDataItem3Temp);
+            let subDataItem3P = document.createElement("p");
+            subDataItem3P.innerHTML = "Min-Max";
+            subDataItem3.appendChild(subDataItem3P);
+            subDataElem.appendChild(subDataItem3);
+
+            mainElem.appendChild(subDataElem);
+
             let main = document.getElementById("5dayForecast");
             main.appendChild(mainElem);
 
@@ -97,21 +168,26 @@ function disableLoader() {
     document.getElementById("loader").style.display = "none";
 }
 
+function fetchWeatherDataByCityName(city) {
+    enableLoader();
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appId}&units=metric`
+    fetch(url).then(response => response.json()).then(data => {
+        loadData(data);
+    })
+    .catch(error => {
+        alert("City not found");
+        disableLoader();
+    })
+}
 
 
 
 function initialLoader() {
-    enableLoader();
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=Kathmandu&appid=${appId}&units=metric`
-    fetch(url).then(response => response.json()).then(data => {
-        loadData(data);
-
-
-    })
-
+    fetchWeatherDataByCityName("Kathmandu");
+    document.getElementById("searchForm").addEventListener("submit", handleSearch);
 }
 
-window.addEventListener("load", initialLoader);
+
 
 
 
@@ -166,6 +242,57 @@ function convertTemp() {
         elm.innerHTML = (temp);
     }
 
+    const minMaxElems = document.getElementsByClassName("convertableMinMax");
+    for (let i = 0; i < minMaxElems.length; i++) {
+        let elm = minMaxElems[i];
+        let temps = elm.innerText.split("-");
+        let min = parseFloat(temps[0]);
+        let max = parseFloat(temps[1]);
+        if (mode == "C") {
+            min = (min - 32) * (5 / 9);
+            max = (max - 32) * (5 / 9);
+        }
+        else {
+            min = (min * (9 / 5)) + 32;
+            max = (max * (9 / 5)) + 32;
+        }
+        //check if temp is a number with decimals
+        if (min % 1 != 0) {
+            min = min.toFixed(2);
+        }
+        if (max % 1 != 0) {
+            max = max.toFixed(2);
+        }
+
+        elm.innerHTML = `${min} - ${max}`;
+    }
+
+
+    // const minMaxElem = document.getElementById("minMaxTemp");
+    // const temps = minMaxElem.innerText.split("-");
+    // let min = parseFloat(temps[0]);
+    // let max = parseFloat(temps[1]);
+    // if (mode == "C") {
+    //     min = (min - 32) * (5 / 9);
+    //     max = (max - 32) * (5 / 9);
+    // }
+    // else {
+    //     min = (min * (9 / 5)) + 32;
+    //     max = (max * (9 / 5)) + 32;
+    // }
+
+    // minMaxElem.innerHTML = `${min.toFixed(2)} - ${max.toFixed(2)}`;
+
 }
 
 
+function handleSearch(e){
+    e.preventDefault();
+    let input = document.getElementById("cityInput");
+    let city = input.value;
+    fetchWeatherDataByCityName(city);
+}
+
+
+
+window.addEventListener("load", initialLoader);

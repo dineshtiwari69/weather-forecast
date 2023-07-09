@@ -29,13 +29,13 @@
     </div>
 
     <header>
-      <form class="searchBarForm">
+      <form class="searchBarForm" id="searchForm">
         <div class="searchBox">
           <i
             class="fa-solid fa-bolt"
             style="color: #ffffff; font-size: 20px"
           ></i>
-          <input type="text" class="searchBar" placeholder="Search" />
+          <input type="text" class="searchBar" placeholder="Search" id="cityInput"/>
           <button type="submit" style="display: none" class="searchButton">
             Search
           </button>
@@ -54,6 +54,25 @@
               height="200px"
             />
             <h2 class="convertable" id="temperature">25</h2>
+          </div>
+          <div class="subData">
+            <div class="subDataItem">
+              <i class="fa-solid fa-droplet fa-lg" style="color: #ffffff;"></i>
+              <h3 class="" id="humidity">50</h3>
+              <p>Humidity</p>
+            </div>
+            <div class="subDataItem">
+              <i class="fa-solid fa-jedi fa-lg" style="color: #ffffff;"></i>
+              <h3 class="" id="pressure">50</h3>
+              <p>Pressure</p>
+            </div>
+            <div class="subDataItem">
+              <i class="fa-solid fa-temperature-arrow-up fa-lg" style="color: #ffffff;"></i>
+              <i class="fa-solid fa-temperature-arrow-down fa-lg" style="color: #ffffff;"></i>
+              <h3 class="convertableMinMax" id="minMaxTemp">20-50</h3>
+              <p>Min-Max</p>
+            </div>
+
           </div>
           <div class="switcher">
             <div
