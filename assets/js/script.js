@@ -127,24 +127,19 @@ function loadData(data) {
             
             let subDataItem3 = document.createElement("div");
             subDataItem3.classList.add("subDataItem");
-            let subDataItem3Icon1 = document.createElement("i");
-            subDataItem3Icon1.classList.add("fa-solid");
-            subDataItem3Icon1.classList.add("fa-temperature-arrow-up");
-            subDataItem3Icon1.classList.add("fa-lg");
-            subDataItem3Icon1.style.color = "#ffffff";
-            subDataItem3.appendChild(subDataItem3Icon1);
+            
             let subDataItem3Icon2 = document.createElement("i");
             subDataItem3Icon2.classList.add("fa-solid");
-            subDataItem3Icon2.classList.add("fa-temperature-arrow-down");
+            subDataItem3Icon2.classList.add("fa-wind");
             subDataItem3Icon2.classList.add("fa-lg");
             subDataItem3Icon2.style.color = "#ffffff";
             subDataItem3.appendChild(subDataItem3Icon2);
             let subDataItem3Temp = document.createElement("h3");
-            subDataItem3Temp.classList.add("convertableMinMax");
-            subDataItem3Temp.innerHTML = `${value.main.temp_min} - ${value.main.temp_max}`;
+            subDataItem3Temp.classList.add("wind");
+            subDataItem3Temp.innerHTML = value.wind.speed;
             subDataItem3.appendChild(subDataItem3Temp);
             let subDataItem3P = document.createElement("p");
-            subDataItem3P.innerHTML = "Min-Max";
+            subDataItem3P.innerHTML = "Wind";
             subDataItem3.appendChild(subDataItem3P);
             subDataElem.appendChild(subDataItem3);
 
@@ -183,7 +178,7 @@ function fetchWeatherDataByCityName(city) {
 
 
 function initialLoader() {
-    fetchWeatherDataByCityName("Kathmandu");
+    fetchWeatherDataByCityName("Neath Port Talbot");
     document.getElementById("searchForm").addEventListener("submit", handleSearch);
 }
 
