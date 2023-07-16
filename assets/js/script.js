@@ -3,7 +3,7 @@ const appId = "b8471db96386d69f830154b522912014"
 function getDateTimeString(timestamp){
     //datetime in this format 2023 Jun 12 12:00:00 from timestamp 1689498000
     let date = new Date(timestamp * 1000);
-    console.log(date);
+    
     let day = date.getDay();
     let month = date.getMonth();
     let dayOfMonth = date.getDate();
@@ -21,17 +21,20 @@ function getDateTimeString(timestamp){
 
     return dateTimeString;
 }
-
+function toSentenceCase(str){
+    return str.toLowerCase().charAt(0).toUpperCase() + str.slice(1);;
+}
 
 function loadData(data) {
     const cityName = data.name;
     const weather = data.weather[0];
     const timestamp = data.dt;
+    const cloudStatus = weather.description;
 
     const cloudUrl = `http://openweathermap.org/img/wn/${weather.icon}@4x.png`;
 
 
-
+    document.getElementById("cloudStatus").innerHTML = `Cloud Status : ${toSentenceCase(cloudStatus)}`;
     document.getElementById("temperature").innerHTML = data.main.temp;
     document.getElementById("weatherIcon").src = cloudUrl;
     document.getElementById("cityName").innerHTML = cityName;
