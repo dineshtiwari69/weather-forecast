@@ -45,6 +45,7 @@
     <main>
       <div class="cityInfo">
         <h1 class="cityInfoName" id="cityName">Kathmandu, Nepal</h1>
+        <span id="datetime">2020-05:20</span>
         <div class="controllerData">
           <div class="weatherInfo">
             <img
@@ -67,10 +68,10 @@
               <p>Pressure</p>
             </div>
             <div class="subDataItem">
-              <i class="fa-solid fa-temperature-arrow-up fa-lg" style="color: #ffffff;"></i>
-              <i class="fa-solid fa-temperature-arrow-down fa-lg" style="color: #ffffff;"></i>
-              <h3 class="convertableMinMax" id="minMaxTemp">20-50</h3>
-              <p>Min-Max</p>
+              <i class="fa-solid fa-wind fa-lg" style="color: #ffffff;"></i>
+            
+              <h3 class="windSpeed" id="windSpeed">20-50</h3>
+              <p>Wind</p>
             </div>
 
           </div>
@@ -80,14 +81,14 @@
               id="celciusSwitch"
               onclick="toggleSwitch();"
             >
-              <button onclick="toggleSwitch();">C</button>
+              <button onclick="toggleSwitch();">Celcius</button>
             </div>
             <div
               class="switcherItem"
               id="fahrenheitSwitch"
               onclick="toggleSwitch();"
             >
-              <button>F</button>
+              <button  onclick="toggleSwitch();">Fahrenheit</button>
             </div>
           </div>
         </div>

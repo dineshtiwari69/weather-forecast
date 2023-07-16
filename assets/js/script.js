@@ -1,9 +1,32 @@
 const appId = "b8471db96386d69f830154b522912014"
 
+function getDateTimeString(timestamp){
+    //datetime in this format 2023 Jun 12 12:00:00 from timestamp 1689498000
+    let date = new Date(timestamp * 1000);
+    console.log(date);
+    let day = date.getDay();
+    let month = date.getMonth();
+    let dayOfMonth = date.getDate();
+    let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
+    let dayName = dayNames[day];
+    let monthName = monthNames[month];
+
+    let dayString = `${dayName} , ${monthName} ${dayOfMonth}`;
+
+    let time = date.toLocaleTimeString();
+
+    let dateTimeString = `As of ${dayString} ${time}`;
+
+    return dateTimeString;
+}
+
 
 function loadData(data) {
     const cityName = data.name;
     const weather = data.weather[0];
+    const timestamp = data.dt;
 
     const cloudUrl = `http://openweathermap.org/img/wn/${weather.icon}@4x.png`;
 
@@ -14,8 +37,9 @@ function loadData(data) {
     document.getElementById("cityName").innerHTML = cityName;
     document.getElementById("humidity").innerHTML = data.main.humidity;
     document.getElementById("pressure").innerHTML = data.main.pressure;
-    const minMax = `${data.main.temp_min}-${data.main.temp_max}`;
-    document.getElementById("minMaxTemp").innerHTML = minMax;
+    document.getElementById("datetime").innerHTML = getDateTimeString(timestamp);
+    const minMax = data.wind.speed;
+    document.getElementById("windSpeed").innerHTML = minMax;
 
 
 
@@ -168,6 +192,7 @@ function fetchWeatherDataByCityName(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appId}&units=metric`
     fetch(url).then(response => response.json()).then(data => {
         loadData(data);
+        
     })
     .catch(error => {
         alert("City not found");
@@ -180,6 +205,8 @@ function fetchWeatherDataByCityName(city) {
 function initialLoader() {
     fetchWeatherDataByCityName("Neath Port Talbot");
     document.getElementById("searchForm").addEventListener("submit", handleSearch);
+
+    
 }
 
 
