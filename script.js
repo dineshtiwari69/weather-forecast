@@ -50,17 +50,14 @@ function loadData(data) {
     const lat = latLong.lat;
     const long = latLong.lon;
 
-    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${appId}&units=metric`
+    const url = `history.php?city=${cityName}`;
 
     fetch(url).then(response => response.json()).then(data => {
         document.getElementById("5dayForecast").innerHTML = "";
-        const forecast = data.list;
-        // only pick every 5th 
-        const filteredForecast = forecast.filter((value, index) => {
-            return index % 8 == 0;
-        });
+        const forecast = data;
+       
         
-        filteredForecast.forEach((value, index) => {
+        forecast.forEach((value, index) => {
            
             const weather = value.weather[0];
             const cloudUrl = `http://openweathermap.org/img/wn/${weather.icon}@4x.png`;
@@ -70,8 +67,10 @@ function loadData(data) {
             mainElem.classList.add("cardMain");
 
             let dateElem = document.createElement("span");
-            //convert timestamp to something like "Monday , Jun 12"
-            let date = new Date(value.dt * 1000);
+
+            
+
+            let date = new Date(value.last_updated);
             let day = date.getDay();
             let month = date.getMonth();
             let dayOfMonth = date.getDate();
@@ -82,15 +81,6 @@ function loadData(data) {
             let monthName = monthNames[month];
 
             let dayString = `${dayName} , ${monthName} ${dayOfMonth}`;
-
-            //inclyude time if index is 0
-
-            if (index == 0) {
-                let time = date.toLocaleTimeString();
-                dayString = `${dayString} ${time}`;
-            }
-                
-
 
             dateElem.innerHTML = dayString;
 
@@ -192,7 +182,8 @@ function disableLoader() {
 
 function fetchWeatherDataByCityName(city) {
     enableLoader();
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appId}&units=metric`
+    //const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appId}&units=metric`
+    const url = `api.php?city=${city}`
     fetch(url).then(response => response.json()).then(data => {
         loadData(data);
         
